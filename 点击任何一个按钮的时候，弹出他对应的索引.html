@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        ul li{
+        ul li {
             list-style: none;
             width: 20px;
             height: 20px;
@@ -25,53 +25,69 @@
 <script>
 
     /*点击任何一个按钮的时候，弹出他对应的索引：
-    1）自定义属性解决方式
-    2）闭包*/
-// 方法1
-    $(function () {
-        $("ul>li").each(function (index,item) {
+     1）自定义属性解决方式
+     2）闭包*/
+    // 方法1
+    /*$(function () {
+        $("ul>li").each(function (index, item) {
             $(item).click(function () {
                 alert(index);
                 $("ul>li").each(function (index, item) {
-                    $(item).css({"backgroundColor":"yellow"})
+                    $(item).css({"backgroundColor": "yellow"})
                 })
-                $(item).css({"backgroundColor":"red"})
+                $(item).css({"backgroundColor": "red"})
             })
         })
-    })
-
-//    方法2
-    /*var oUl=document.getElementsByClassName("box")[0];
-    var aLi=oUl.getElementsByTagName("li");
-    aLi=Array.prototype.slice.call(aLi);
-    aLi.forEach(function (item, index) {
-        item.onclick=function () {
-            alert(index);
-            aLi.forEach(function (item, index) {
-                item.style.backgroundColor='yellow'
-            })
-            item.style.backgroundColor='red'
-        }
     })*/
 
-
-//    方法3
+    //    方法2
     /*var oUl=document.getElementsByClassName("box")[0];
-    var aLi=oUl.getElementsByTagName("li");
-    for(var i=0;i<aLi.length;i++){
-        console.log(this)
-        console.log(i)
-        aLi[i].zf=i;
-        aLi[i].onclick=function () {
-//            alert(i)  //所有事件中的i值，都是错的，永远拿到的都是最大值；
-            alert(this.zf);
-            for (var j=0;j<aLi.length;j++){
-                aLi[j].style.backgroundColor="yellow"
+     var aLi=oUl.getElementsByTagName("li");
+     aLi=Array.prototype.slice.call(aLi);
+     aLi.forEach(function (item, index) {
+     item.onclick=function () {
+     alert(index);
+     aLi.forEach(function (item, index) {
+     item.style.backgroundColor='yellow'
+     })
+     item.style.backgroundColor='red'
+     }
+     })*/
+
+
+    //    方法3
+    /*var oUl=document.getElementsByClassName("box")[0];
+     var aLi=oUl.getElementsByTagName("li");
+     for(var i=0;i<aLi.length;i++){
+     console.log(this)
+     console.log(i)
+     aLi[i].zf=i;
+     aLi[i].onclick=function () {
+     //            alert(i)  //所有事件中的i值，都是错的，永远拿到的都是最大值；
+     alert(this.zf);
+     for (var j=0;j<aLi.length;j++){
+     aLi[j].style.backgroundColor="yellow"
+     }
+     aLi[this.zf].style.backgroundColor="red"
+     }
+     }
+     */
+
+    //    方法4
+    var oUl = document.getElementsByClassName("box")[0];
+    var aLi = oUl.getElementsByTagName("li");
+    for (var i = 0; i < aLi.length; i++) {
+        (function (index) {
+            aLi[index].onclick = function () {
+                alert(index)
+                for (var j = 0; j < aLi.length; j++) {
+                    aLi[j].style.backgroundColor = "yellow";
+                }
+                aLi[index].style.backgroundColor = "red"
             }
-            aLi[this.zf].style.backgroundColor="red"
-        }
+        })(i)
+
     }
-*/
 </script>
 </body>
 </html>
